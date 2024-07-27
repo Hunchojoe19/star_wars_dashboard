@@ -62,7 +62,7 @@ const Header = () => {
       </div>
       <div className="hidden md:flex w-full h-16 shadow-lg shadow-primary-shadow/30 border border-b-0">
         <div className="flex w-full items-center justify-end">
-          <div className="flex items-center justify-between w-[30%] px-2">
+          <div className="flex items-center justify-between w-[30%] px-8">
             <IoIosNotificationsOutline className="text-primary-notification w-6 h-6 cursor-pointer" />
             <div className="bg-primary-shadow w-[1px] h-[25px]" />
             <div className="flex items-center gap-x-4">

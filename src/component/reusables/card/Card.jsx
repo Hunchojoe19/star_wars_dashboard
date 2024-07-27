@@ -14,7 +14,7 @@ const Card = ({ title, background }) => {
         <p className="text-sm font-bold text-primary-card_text_color text-[16px]">
           200
         </p>
-        <p className="text-sm text-primary-card_green_color text-[8px]">
+        <p className="text-primary-card_green_color text-[9px]">
           20 More than than yesterday
         </p>
       </div>

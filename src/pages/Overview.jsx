@@ -1,7 +1,8 @@
 import React from "react";
 import Header from "../component/reusables/header/Header";
 import Card from "../component/reusables/card/Card";
-
+import Table from "../component/table/Table";
+import { useLocation } from "react-router-dom";
 const cardData = [
   { id: 1, title: "Films", background: "#A9FFE0" },
   { id: 2, title: "Starship", background: "#A9C1FF" },
@@ -10,6 +11,19 @@ const cardData = [
 ];
 
 const Overview = () => {
+  const location = useLocation();
+  let tableTitle = "";
+
+  switch (location.pathname) {
+    case "/dashboard":
+      tableTitle = "Films";
+      break;
+    case "/starships":
+      tableTitle = "Starships";
+      break;
+    default:
+      tableTitle = "";
+  }
   return (
     <div className="w-full">
       <Header />
@@ -19,6 +33,14 @@ const Overview = () => {
             <Card title={card.title} background={card.background} />
           </div>
         ))}
+      </div>
+      <div className="w-full px-8">
+        <div className="mt-10 flex flex-col gap-y-4">
+          <p className="text-base text-primary-gray font-normal">
+            {tableTitle}
+          </p>
+          <Table />
+        </div>
       </div>
     </div>
   );
