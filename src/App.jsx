@@ -8,6 +8,10 @@ import SideTab from "./component/sidetab/SideTab";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Overview from "./pages/Overview";
 import DashboardLayout from "./component/dashboard/DashboardLayout";
+import Starships from "./pages/Starships";
+import People from "./pages/People";
+import Species from "./pages/Species";
+import SingleFilmPage from "./pages/SingleFilmPage";
 
 function App() {
   return (
@@ -16,6 +20,10 @@ function App() {
         <Routes>
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<Overview />} />
+            <Route path="starships" element={<Starships />} />
+            <Route path="people" element={<People />} />
+            <Route path="species" element={<Species />} />
+            <Route path="/dashboard/:id" element={<SingleFilmPage />} />
           </Route>
         </Routes>
       </Router>

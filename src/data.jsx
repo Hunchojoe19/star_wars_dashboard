@@ -14,18 +14,18 @@ export const headerData = [
     id: 2,
     title: "starships",
     icon: `${first}`,
-    link: "/starships",
+    link: "/dashboard/starships",
   },
   {
     id: 3,
     title: "people",
     icon: `${second}`,
-    link: "/people",
+    link: "/dashboard/people",
   },
   {
     id: 4,
     title: "species",
     icon: `${third}`,
-    link: "/species",
+    link: "/dashboard/species",
   },
 ];

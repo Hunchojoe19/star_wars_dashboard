@@ -2,18 +2,29 @@ import React, { useEffect } from "react";
 import Logo from "../reusables/logo/Logo";
 import { headerData } from "../../data";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveTab } from "../../redux/features/appSlice";
 
 const SideTab = () => {
-  const [activeTab, setActiveTab] = React.useState("dashboard");
+  // const [activeTab, setActiveTab] = React.useState("dashboard");
+  const dispatch = useDispatch();
+  const activeTab = useSelector((state) => state.app.activeTab);
   useEffect(() => {
-    setActiveTab(window.location.pathname);
-  }, []);
+    const savedTab = localStorage.getItem("activeTab");
+    if (savedTab) {
+      dispatch(setActiveTab(savedTab));
+    } else {
+      dispatch(setActiveTab(window.location.pathname));
+    }
+  }, [window.location.pathname]);
+
   console.log(activeTab, "active tab");
   const navigate = useNavigate();
   const sideTabRouter = (link) => {
-    setActiveTab(link);
+    localStorage.setItem("activeTab", link);
+    dispatch(setActiveTab(link));
 
-    // navigate(link);
+    navigate(link);
   };
   return (
     <div className="hidden md:block w-full h-screen bg-primary-bg px-4 py-4">

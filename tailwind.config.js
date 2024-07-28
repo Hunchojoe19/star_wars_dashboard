@@ -34,6 +34,7 @@ export default {
           gray: "#A4A7B7",
           card_text_color: "#434854",
           card_green_color: "#00992B",
+          details_color: "#434854",
         },
       },
     },

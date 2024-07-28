@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../logo/Logo";
 import profile from "../../../assets/profile.svg";
 import { headerData } from "../../../data";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { GoKebabHorizontal } from "react-icons/go";
+import { GoChevronLeft, GoKebabHorizontal } from "react-icons/go";
 
 const Header = () => {
   const [open, setOpen] = React.useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const hasId = /\/dashboard\/(\d+|[a-zA-Z0-9-]+)/.test(location.pathname);
   return (
     <header className="w-full">
       <div className="md:hidden flex justify-between items-center bg-primary-bg px-2 py-2">
@@ -61,6 +64,15 @@ const Header = () => {
         </div>
       </div>
       <div className="hidden md:flex w-full h-16 shadow-lg shadow-primary-shadow/30 border border-b-0">
+        {hasId && (
+          <div
+            className="flex gap-x-1 items-center cursor-pointer w-[200px] px-8"
+            onClick={() => navigate(-1)}
+          >
+            <GoChevronLeft className="text-primary-gray" />
+            <p className="text-sm text-primary-gray">Back</p>
+          </div>
+        )}
         <div className="flex w-full items-center justify-end">
           <div className="flex items-center justify-between w-[30%] px-8">
             <IoIosNotificationsOutline className="text-primary-notification w-6 h-6 cursor-pointer" />
