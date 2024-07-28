@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../logo/Logo";
 import profile from "../../../assets/profile.svg";
 import { headerData } from "../../../data";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { GoChevronLeft, GoKebabHorizontal } from "react-icons/go";
-import { hasIdInPath } from "../../../util/utils";
+import { hasIdInPath, TruncateText } from "../../../util/utils";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../../redux/features/appSlice";
 
 const Header = () => {
   const [open, setOpen] = React.useState("");
   const location = useLocation();
   const navigate = useNavigate();
   const hasId = hasIdInPath(location.pathname);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const savedEmail = localStorage.getItem("user");
+    if (savedEmail) {
+      dispatch(setUser(JSON.parse(savedEmail)));
+    }
+  }, []);
+  const userEmail = useSelector((state) => state.app.user);
   return (
     <header className="w-full">
       <div className="md:hidden flex justify-between items-center bg-primary-bg px-2 py-2">
@@ -80,7 +91,9 @@ const Header = () => {
             <div className="bg-primary-shadow w-[1px] h-[25px]" />
             <div className="flex items-center gap-x-4">
               <img src={profile} alt="profile" className="cursor-pointer" />
-              <p className="text- text-sm">John Doe</p>
+              <p className="text- text-sm">
+                {<TruncateText text={userEmail} maxLength={14} />}
+              </p>
             </div>
             <GoKebabHorizontal className="text-primary-kebab cursor-pointer" />
           </div>

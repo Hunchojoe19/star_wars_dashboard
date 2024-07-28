@@ -41,31 +41,12 @@ export const hasIdInPath = (pathname) => {
   return routesWithId.some((route) => route.test(pathname));
 };
 
-export const validateEmail = (email) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-};
-
-export const validatePassword = (password) => {
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-  return passwordRegex.test(password);
-};
-
-export const validateForm = ({ email, password }) => {
-  const errors = {};
-
-  if (!email) {
-    errors.email = "Email is required";
-  } else if (!validateEmail(email)) {
-    errors.email = "Email is not valid";
+export const TruncateText = ({ text, maxLength }) => {
+  if (text?.length <= maxLength) {
+    return <span className="capitalize">{text}</span>;
   }
 
-  if (!password) {
-    errors.password = "Password is required";
-  } else if (!validatePassword(password)) {
-    errors.password =
-      "Password must be at least 6 characters long and contain both letters and numbers";
-  }
+  const truncatedText = text?.substring(0, maxLength) + "...";
 
-  return errors;
+  return <span title={text}>{truncatedText}</span>;
 };

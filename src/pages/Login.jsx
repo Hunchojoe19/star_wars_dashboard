@@ -8,7 +8,7 @@ const Login = () => {
       <div className="hidden md:flex flex-col w-[28%]">
         <Left />
       </div>
-      <div className="flex flex-col w-[72%] bg-yellow-400">
+      <div className="flex flex-col w-full h-screen md:w-[72%]">
         <Right />
       </div>
     </div>
