@@ -10,6 +10,7 @@ import { setActiveTab } from "../redux/features/appSlice";
 import CardLoader from "../component/reusables/loader/CardLoader";
 import TableLoader from "../component/reusables/loader/TableLoader";
 import HeaderLoader from "../component/reusables/loader/HeaderLoader";
+import { fetchFilms } from "../component/api/api";
 
 const cardData = [
   { id: 1, title: "Films", background: "#A9FFE0", link: "/dashboard" },
@@ -35,31 +36,22 @@ const Overview = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch("https://swapi.dev/api/films/")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const transformedData = data.results.map((film) => ({
-          id: film.episode_id,
-          title: film.title,
-          releaseDate: formatDate(film.release_date),
-          director: film.director,
-          producer: film.producer.split(",")[0].trim(),
-          episodeId: film.episode_id,
-          character: film.characters[0],
-          isChecked: false,
+    const loadFilms = async () => {
+      try {
+        const data = await fetchFilms();
+        const transformedData = data.map((film) => ({
+          ...film,
+          releaseDate: formatDate(film.releaseDate),
         }));
         setRows(transformedData);
-        setLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         setError(error);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    loadFilms();
   }, []);
 
   const handleCheckboxChange = (checked, id) => {

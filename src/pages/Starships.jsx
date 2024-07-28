@@ -30,7 +30,7 @@ const Starships = () => {
           name: capitalizeFirstLetters(ship.name),
           model: capitalizeFirstLetters(ship.model),
           class: capitalizeFirstLetters(ship.starship_class),
-          passenger: ship.passengers,
+          passenger: capitalizeFirstLetters(ship.passengers),
           character: ship.films[0],
           length: `${ship.length} Meters`,
         }));

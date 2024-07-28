@@ -29,12 +29,16 @@ const Species = () => {
       })
       .then((data) => {
         const transformedData = data.results.map((species) => ({
-          id: species.url.split("/").slice(-2, -1)[0], // Extract ID from URL
+          id: species.url.split("/").slice(-2, -1)[0],
           name: capitalizeFirstLetters(species.name),
           classification: capitalizeFirstLetters(species.classification),
           eyeColors: capitalizeFirstLetters(species.eye_colors),
           hairColors: capitalizeFirstLetters(species.hair_colors),
-          height: `${species.average_height} CM`,
+          height: `${
+            species.average_height !== "n/a"
+              ? species.average_height + " CM"
+              : "N/A"
+          }`,
           created: formatDateCreated(species.created),
         }));
         setRows(transformedData);

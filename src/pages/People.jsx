@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import HeaderLoader from "../component/reusables/loader/HeaderLoader";
 import TableLoader from "../component/reusables/loader/TableLoader";
 import { useDispatch } from "react-redux";
+import { fetchPeople } from "../component/api/api";
 
 const People = () => {
   const [rows, setRows] = useState([]);
@@ -20,30 +21,25 @@ const People = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch("https://swapi.dev/api/people/")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const transformedData = data.results.map((person) => ({
-          id: person.url.split("/").slice(-2, -1)[0],
+    const loadPeople = async () => {
+      try {
+        const data = await fetchPeople();
+        const transformedData = data.map((person) => ({
+          ...person,
           name: capitalizeFirstLetters(person.name),
-          birthYear: person.birth_year,
           gender: capitalizeFirstLetters(person.gender),
-          hairColor: capitalizeFirstLetters(person.hair_color),
-          height: `${person.height} CM`,
+          hairColor: capitalizeFirstLetters(person.hairColor),
           created: formatDateCreated(person.created),
         }));
         setRows(transformedData);
-        setLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         setError(error);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    loadPeople();
   }, []);
 
   const handleCheckboxChange = (checked, id) => {

@@ -68,13 +68,13 @@ const PeopleDetailsPage = () => {
             <p className="mt-10 text-5xl font-medium uppercase">
               {people.name}
             </p>
-            <p className="text-base text-primary-details_color font-medium mt-1">
+            <p className="text-base text-primary-details_color font-medium mt-1 capitalize">
               <span>Gender:</span> {people.gender}
             </p>
             <p className="text-base text-primary-details_color font-medium">
               <span>Year of birth:</span> {people.birth_year}
             </p>
-            <p className="text-base text-primary-details_color font-medium">
+            <p className="text-base text-primary-details_color font-medium capitalize">
               <span>Skin Color:</span> {people.skin_color}
             </p>
             <p className="text-base text-primary-details_color font-medium">
