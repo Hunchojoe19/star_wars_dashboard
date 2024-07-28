@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   capitalizeFirstLetters,
   formatDateCreated,
@@ -7,12 +7,17 @@ import {
 } from "../util/utils";
 import Header from "../component/reusables/header/Header";
 import Table from "../component/table/Table";
+import HeaderLoader from "../component/reusables/loader/HeaderLoader";
+import TableLoader from "../component/reusables/loader/TableLoader";
+import { useDispatch } from "react-redux";
 
 const Species = () => {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetch("https://swapi.dev/api/species/")
@@ -67,7 +72,12 @@ const Species = () => {
   ];
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="h-screen w-full flex flex-col gap-y-16">
+        <HeaderLoader />
+        <TableLoader />
+      </div>
+    );
   }
 
   if (error) {
@@ -75,6 +85,12 @@ const Species = () => {
   }
 
   const tableTitle = getTableName(location.pathname);
+
+  const handleRoutingToDetailsPage = (id) => {
+    localStorage.setItem("activeTab", "/dashboard/species");
+    navigate(`/dashboard/species/${id}`);
+    dispatch(setActiveTab("/dashboard/species"));
+  };
 
   return (
     <div className="w-full">
@@ -89,6 +105,7 @@ const Species = () => {
             rows={rows}
             onCheckboxChange={handleCheckboxChange}
             onDeleteSelected={handleDeleteSelected}
+            onRowClick={(id) => handleRoutingToDetailsPage(id)}
           />
         </div>
       </div>

@@ -34,3 +34,38 @@ export const formatDateToShowMonth = (dateString) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
   return date.toLocaleDateString(undefined, options);
 };
+
+export const hasIdInPath = (pathname) => {
+  const routesWithId = [/\/dashboard\/\d+/, /\/dashboard\/[a-zA-Z0-9-]+\/\d+$/];
+
+  return routesWithId.some((route) => route.test(pathname));
+};
+
+export const validateEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+export const validatePassword = (password) => {
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+  return passwordRegex.test(password);
+};
+
+export const validateForm = ({ email, password }) => {
+  const errors = {};
+
+  if (!email) {
+    errors.email = "Email is required";
+  } else if (!validateEmail(email)) {
+    errors.email = "Email is not valid";
+  }
+
+  if (!password) {
+    errors.password = "Password is required";
+  } else if (!validatePassword(password)) {
+    errors.password =
+      "Password must be at least 6 characters long and contain both letters and numbers";
+  }
+
+  return errors;
+};

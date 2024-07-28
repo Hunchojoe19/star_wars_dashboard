@@ -27,8 +27,8 @@ const SideTab = () => {
     navigate(link);
   };
   return (
-    <div className="hidden md:block w-full h-screen bg-primary-bg px-4 py-4">
-      <div className="w-full -h-full flex flex-col items-center">
+    <div className="hidden md:block md:h-[700px] lg:h-[700px] w-full xl:h-screen bg-primary-bg px-4 py-4">
+      <div className="w-full h-full flex flex-col items-center">
         <div className="w-[80%] mt-2 flex justify-center items-center">
           <Logo />
         </div>
@@ -47,10 +47,10 @@ const SideTab = () => {
                     <img src={item.icon} alt={item.title} />
                   </div>
                 ) : (
-                  <div>{item.icon}</div>
+                  <div className="">{item.icon}</div>
                 )}
               </div>
-              <p className="xl:text-lg lg:text-sm text-white capitalize">
+              <p className="text-[12px] xl:text-lg lg:text-sm text-white capitalize">
                 {item.title}
               </p>
             </div>

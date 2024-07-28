@@ -7,6 +7,9 @@ import { formatDate, getTableName } from "../util/utils";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setActiveTab } from "../redux/features/appSlice";
+import CardLoader from "../component/reusables/loader/CardLoader";
+import TableLoader from "../component/reusables/loader/TableLoader";
+import HeaderLoader from "../component/reusables/loader/HeaderLoader";
 
 const cardData = [
   { id: 1, title: "Films", background: "#A9FFE0", link: "/dashboard" },
@@ -24,7 +27,6 @@ const cardData = [
     link: "/dashboard/species",
   },
 ];
-
 const Overview = () => {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -86,7 +88,19 @@ const Overview = () => {
   ];
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="h-screen w-full flex flex-col gap-y-16">
+        <HeaderLoader />
+        <div className="ml-8 flex items-center gap-x-8">
+          <CardLoader />
+          <CardLoader />
+          <CardLoader />
+          <CardLoader />
+        </div>
+
+        <TableLoader />
+      </div>
+    );
   }
 
   if (error) {

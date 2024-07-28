@@ -39,7 +39,7 @@ const DataTable = ({
           Delete
         </button>
       )}
-      <div className="overflow-y-auto max-h-[360px] lg:max-h-[236px] xl:max-h-[386px]">
+      <div className="overflow-y-auto md:max-h-[240px] lg:max-h-[236px] xl:max-h-[386px]">
         <table ref={tableRef} className="min-w-full border-collapse">
           <thead
             className={`sticky top-0 bg-gray-50 transition-all duration-300 ${
@@ -69,11 +69,7 @@ const DataTable = ({
           </thead>
           <tbody>
             {rows.map((row) => (
-              <tr
-                key={row.id}
-                className="border-b cursor-pointer"
-                onClick={() => onRowClick(row.id)}
-              >
+              <tr key={row.id} className="border-b cursor-pointer">
                 <td className="p-4">
                   <input
                     type="checkbox"
@@ -86,7 +82,11 @@ const DataTable = ({
                   />
                 </td>
                 {headers.map((header, index) => (
-                  <td key={index} className="p-4 text-sm text-left">
+                  <td
+                    key={index}
+                    className="p-4 text-sm text-left"
+                    onClick={() => onRowClick(row.id)}
+                  >
                     {row[header.key]}
                   </td>
                 ))}

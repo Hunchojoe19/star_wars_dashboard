@@ -5,12 +5,13 @@ import profile from "../../../assets/profile.svg";
 import { headerData } from "../../../data";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { GoChevronLeft, GoKebabHorizontal } from "react-icons/go";
+import { hasIdInPath } from "../../../util/utils";
 
 const Header = () => {
   const [open, setOpen] = React.useState("");
   const location = useLocation();
   const navigate = useNavigate();
-  const hasId = /\/dashboard\/(\d+|[a-zA-Z0-9-]+)/.test(location.pathname);
+  const hasId = hasIdInPath(location.pathname);
   return (
     <header className="w-full">
       <div className="md:hidden flex justify-between items-center bg-primary-bg px-2 py-2">
@@ -66,7 +67,7 @@ const Header = () => {
       <div className="hidden md:flex w-full h-16 shadow-lg shadow-primary-shadow/30 border border-b-0">
         {hasId && (
           <div
-            className="flex gap-x-1 items-center cursor-pointer w-[200px] px-8"
+            className="flex gap-x-1 items-center cursor-pointer w-[160px] px-8"
             onClick={() => navigate(-1)}
           >
             <GoChevronLeft className="text-primary-gray" />
