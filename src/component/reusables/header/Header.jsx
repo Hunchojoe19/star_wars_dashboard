@@ -7,7 +7,7 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { GoChevronLeft, GoKebabHorizontal } from "react-icons/go";
 import { hasIdInPath, TruncateText } from "../../../util/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../../redux/features/appSlice";
+import { setActiveTab, setUser } from "../../../redux/features/appSlice";
 
 const Header = () => {
   const [open, setOpen] = React.useState("");
@@ -16,6 +16,7 @@ const Header = () => {
   const hasId = hasIdInPath(location.pathname);
   const dispatch = useDispatch();
 
+  const activeTab = useSelector((state) => state.app.activeTab);
   useEffect(() => {
     const savedEmail = localStorage.getItem("user");
     if (savedEmail) {
@@ -23,6 +24,13 @@ const Header = () => {
     }
   }, []);
   const userEmail = useSelector((state) => state.app.user);
+
+  const sideTabRouter = (link) => {
+    localStorage.setItem("activeTab", link);
+    dispatch(setActiveTab(link));
+
+    navigate(link);
+  };
   return (
     <header className="w-full">
       <div className="md:hidden flex justify-between items-center bg-primary-bg px-2 py-2">
@@ -55,7 +63,13 @@ const Header = () => {
         } absolute w-full z-50 py-8 mt-2 space-y-8 font-bold bg-primary-bg drop-shadow-md px-2`}
       >
         {headerData.map((item) => (
-          <div key={item.id} className="flex items-center gap-x-4">
+          <div
+            key={item.id}
+            className={`flex items-center gap-x-4 ${
+              activeTab === item.link && "bg-primary-active "
+            }`}
+            onClick={() => sideTabRouter(item.link)}
+          >
             <div className="flex justify-center items-center">
               {typeof item.icon === "string" ? (
                 <div>
@@ -71,7 +85,7 @@ const Header = () => {
         <div className="flex justify-end px-2 items-center w-full h-[40px]">
           <div className="flex items-center flex-col gap-y-2">
             <img src={profile} />
-            <p className="text-white text-lg">John Doe</p>
+            <p className="text-white text-lg">{userEmail}</p>
           </div>
         </div>
       </div>
