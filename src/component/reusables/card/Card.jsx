@@ -4,7 +4,7 @@ import Rectangle from "../rectangle/Rectangle";
 const Card = ({ title, background, handlePagesRoute }) => {
   return (
     <div
-      className="w-full md:w-[208px] h-[130px] cursor-pointer shadow-zinc-200 shadow-lg border border-t-0 border-b-4 rounded-lg px-4 flex flex-col justify-center"
+      className="w-[94%] md:w-[208px] h-[130px] cursor-pointer shadow-zinc-200 shadow-lg border border-t-0 border-b-4 rounded-lg px-4 flex flex-col justify-center"
       onClick={handlePagesRoute}
     >
       <div className="flex justify-between items-center">
