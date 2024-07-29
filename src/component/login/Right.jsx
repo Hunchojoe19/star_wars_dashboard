@@ -71,7 +71,6 @@ const Right = () => {
                 name="email"
                 handleBlur={() => setMailFocus(false)}
                 handleFocus={() => setMailFocus(true)}
-                ref={userRef}
               />
               <InputField
                 label="Password"
@@ -79,7 +78,6 @@ const Right = () => {
                 value={formValues.password}
                 onChange={(e) => {
                   setFormValues({ ...formValues, password: e.target.value });
-                  setValidPassword(passwordRegex.test(e.target.value));
                 }}
                 error={!validPassword && passwordFocus}
                 helperText={
@@ -90,7 +88,6 @@ const Right = () => {
                 name="password"
                 handleBlur={() => setPasswordFocus(false)}
                 handleFocus={() => setPasswordFocus(true)}
-                ref={userRef}
               />
             </form>
             <div className="-mt-4">

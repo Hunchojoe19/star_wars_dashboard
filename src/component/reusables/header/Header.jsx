@@ -65,7 +65,7 @@ const Header = () => {
         {headerData.map((item) => (
           <div
             key={item.id}
-            className={`flex items-center gap-x-4 ${
+            className={`flex items-center gap-x-4 h-10 px-2 ${
               activeTab === item.link && "bg-primary-active "
             }`}
             onClick={() => sideTabRouter(item.link)}
